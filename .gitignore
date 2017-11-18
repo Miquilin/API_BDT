@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+\.idea/API_BDT\.iml
+
+\.idea/

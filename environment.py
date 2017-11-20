@@ -1,7 +1,9 @@
 import yaml
 
 global generic_data
-generic_data = yaml.load(open('../../settings/config.yml'))
+#generic_data = yaml.load(open('../../settings/config.yml'))
+generic_data = yaml.load(open('settings/config.yml'))
+
 
 def before_all(context):
     context.host = generic_data['app']['host']

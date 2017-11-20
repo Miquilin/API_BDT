@@ -35,19 +35,40 @@ class tool_project:
         project_test= Project.Project()
         url = self.host + self.root_path + "/projects"
         self.response.add_parameter("name",self.project_name_create)
-        print(self.response.get_parameter())
-        print(url)
         self.result = self.response.do_request("POST", url,self.response.get_parameter() )
-        print("self.result.status_code", self.result.status_code)
-        return self.result.status_code
+        return self.result
 
     def get_all_project(self):
-
-        return None
+        url = self.host + self.root_path + "/projects"
+        self.response.add_parameter("name", self.project_name_create)
+        self.result = self.response.do_request("GET", url)
+        print(self.result.text)
+        return self.result
 
 
     def get_a_project_by_name(self, name):
-        return self
+        response_list = self.get_all_project()
+        #for var in response_list:
+        #    for vars_dictionary in var:
+        #        print(vars_dictionary)
+        #        if(vars_dictionary['name'] == name):
+        #            id_project = vars_dictionary['id'].value()
+        #            #url = self.host + self.root_path + "/project/{}".format(int(id_project))
+        #            # id project
+        #            url = self.host + self.root_path + "/project/{}".format(int(2123257))
+        #            self.result = self.response.do_request("GET", url)
+        #            print(self.result.text)
+        #            return self.result
+
+
+        # url = self.host + self.root_path + "/project/{}".format(int(id_project))
+        # id project to delete: 2129903, "name":"new project"
+        url = self.host + self.root_path + "/projects/{}".format(2123257)
+        self.result = self.response.do_request("GET", url)
+        print("get a project",self.result.text)
+        return self.result
+
 
     def delete_project_create_by_name(self, name):
+
         return None

@@ -6,7 +6,7 @@ class PivotalClient:
     def __init__(self):
         self.headers = {}
         self.endpoint = ''
-        self.parameter = ''
+        self.parameter = {}
 
 
     def do_request(self, method, endpoint, body=None):
@@ -21,4 +21,8 @@ class PivotalClient:
     def add_header(self, name, value):
         self.headers[name] = value
 
+    def add_parameter(self, name, value):
+        self.parameter[name] = value
 
+    def get_parameter(self):
+        return self.parameter

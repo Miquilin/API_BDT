@@ -4,3 +4,9 @@ app:
 users:
   admin_token: 2a6118f239fa9083cf56206082f3eefe
   user_token: 99d8d265cef8087a9d5f6a24df672713
+project_test_data:
+  project_name: Miquilin Project
+  proyect_id: 2123257
+  epic_id: 3778393
+project_test_data_create:
+  project_name: Test create Project

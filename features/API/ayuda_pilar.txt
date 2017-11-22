@@ -25,7 +25,7 @@ API token >>
 Username >>  bluemixuirpfh2
 
 
-behave -f plain --tags @creates --summary --no-capture
+behave -f plain --tags @project --summary --no-capture
 AND
 behave -f plain --tags @any --tags @some --summary --no-capture
 OR
@@ -34,8 +34,16 @@ NOT
 behave -f plain --tags @any --tags ~@some --summary --no-capture
 
 
+https://git-scm.com/docs/gittutorial
 
 https://stackoverflow.com/questions/28872182/pivotal-tracker-api-labels
-
-
+----------------------------------------------------------
+LISTAS Y DICCIONARIOS
+https://jarroba.com/diccionario-python-ejemplos/
+https://www.tutorialpython.com/listas-en-python/
+http://librosweb.es/libro/algoritmos_python/capitulo_9/utilizando_diccionarios_en_python.html
+-----------------------------------------------------------
+JSON
 https://docs.python.org/3/library/json.html
+http://programacion.net/articulo/como_trabajar_con_datos_json_utilizando_python_1403
+

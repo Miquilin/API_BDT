@@ -1,10 +1,11 @@
 Feature: Projects
 Access the project specified by the project_id value in the URL. Access a user's projects
 
-Background: Get all projects
+@project
+Scenario: Get all projects
   Given A valid admin user token added on header
   When I do a "GET" request to pivotal endpoint "/projects"
-  Then I receive status code 200
+  Then I receive projects list
 
 
 #@get_list
@@ -13,7 +14,7 @@ Background: Get all projects
 #  When I do a "GET" request to pivotal endpoint "/projects"
 #  Then I receive status code 200
 
-@smoke
+@project
 Scenario: Verify the status code is 200 when a request for a project is sent
   Given A valid admin user token added on header
   When I do a "GET" request to pivotal endpoint "/projects/2122997"

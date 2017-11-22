@@ -1,0 +1,5 @@
+project_keys= ['id', 'kind', 'name', 'version', 'iteration_length', 'week_start_day', 'point_scale', 'point_scale_is_custom', 'bugs_and_chores_are_estimatable', 'automatic_planning', 'enable_tasks', 'time_zone', 'velocity_averaged_over', 'number_of_done_iterations_to_show', 'has_google_domain', 'enable_incoming_emails', 'initial_velocity', 'public', 'atom_enabled', 'project_type', 'start_time', 'created_at', 'updated_at', 'account_id', 'current_iteration_number', 'enable_following']
+history_keys=[]
+integration_keys=[]
+membership_keys=[]
+webhook_key=[]

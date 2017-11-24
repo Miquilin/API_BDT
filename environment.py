@@ -51,3 +51,4 @@ def create_logger(context):
     context.formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     context.handler.setFormatter(context.formatter)
     context.logger.addHandler(context.handler)
+

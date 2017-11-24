@@ -1,74 +1,92 @@
 import requests, json
 from utils import pivot_client
-from utils.ModelPivotal import Project
+from utils.ModelPivotal import Project, Epic
+from utils.response_utils import get_an_object_response
+import json
 import yaml
 
 class tool_project:
     global generic_data
-    def __init__(self, user, name_project_test):
+    def __init__(self, user,host, root_path,admin_token , user_token ):
         #Inicial data as enviroment to python
-        generic_data = yaml.load(open('../settings/config.yml'))
-        self.host = generic_data['app']['host']
-        self.root_path = generic_data['app']['root_path']
-        self.admin_token = generic_data['users']['admin_token']
-        self.user_token = generic_data['users']['user_token']
-        # ninoshka Existent_data_read
-        self.proyect_id = generic_data['project_test_data']['proyect_id']
-        self.epic_id = generic_data['project_test_data']['epic_id']
-        self.project_name = generic_data['project_test_data']['project_name']
-        # ninoshka New_data_create_edit
-        self.project_name_create = generic_data['project_test_data_create']['project_name']
+        self.user_test = user
+        self.host = host
+        self.root_path = root_path
+        self.admin_token = admin_token
+        self.user_token = user_token
         #Inicial response
         self.response = pivot_client.PivotalClient()
-        self.user_test = user
+        self.initial_response(self.user_test)
+
+    def initial_response(self,user):
         if user == "admin":
             self.response.add_header("X-TrackerToken", self.admin_token)
-            print("user is ", user)
         elif user == "user":
             self.response.add_header("X-TrackerToken", self.user_token)
         else:
             print("user does not exist")
-        # Delete a project if exist it on database
-        self.delete_project_create_by_name(name_project_test)
+#Project functionss
+    def create_project_test(self, context, project_name_create):
+        context.logger.info('Tool create_project_test')
 
-    def create_project_test(self):
         project_test= Project.Project()
         url = self.host + self.root_path + "/projects"
-        self.response.add_parameter("name",self.project_name_create)
+        self.response.add_parameter("name",project_name_create)
+        project_test.set_name(project_name_create)
         self.result = self.response.do_request("POST", url,self.response.get_parameter() )
-        return self.result
+        context.logger.debug('Response is: {}'.format(self.result.text))
+        project_test.set_response_data(self.result.status_code, self.result)
+        print(self.result)
+        data = json.loads(self.result.text)
+        project_test = get_an_object_response(context,data, project_test)
+        return project_test
 
-    def get_all_project(self):
+    def get_all_project(self, context):
+        project_test_list = []
         url = self.host + self.root_path + "/projects"
-        self.response.add_parameter("name", self.project_name_create)
         self.result = self.response.do_request("GET", url)
-        print(self.result.text)
-        return self.result
+        project_response_list = json.loads(self.result.text)
+        for project_response in project_response_list:
+            project_test = Project.Project()
+            project_test_list.append(get_an_object_response(context, project_response, project_test))
+        return project_test_list
 
 
-    def get_a_project_by_name(self, name):
-        response_list = self.get_all_project()
-        #for var in response_list:
-        #    for vars_dictionary in var:
-        #        print(vars_dictionary)
-        #        if(vars_dictionary['name'] == name):
-        #            id_project = vars_dictionary['id'].value()
-        #            #url = self.host + self.root_path + "/project/{}".format(int(id_project))
-        #            # id project
-        #            url = self.host + self.root_path + "/project/{}".format(int(2123257))
-        #            self.result = self.response.do_request("GET", url)
-        #            print(self.result.text)
-        #            return self.result
+    def get_a_project_by_name(self, context,name):
+        context.logger.info('Tool get_a_project_by_name')
+        response_project_list = self.get_all_project(context)
+        for value in response_project_list:
+            if(value.get_name() == name):
+                return value
+            else:
+                context.logger.debug("get_a_project_by_name: {} does not exist".format(name))
 
+    def delete_project_create_by_name( self,context, name):
+        context.logger.info('Tool get_a_project_by_name')
+        project_selected = self.get_a_project_by_name(context,name)
+        if (project_selected != None):
+            id=project_selected.get_id()
+            if id!=0:
+                url = self.host + self.root_path + "/projects/{}".format(id)
+                self.result = self.response.do_request("DELETE", url)
+                project_selected.set_response_data(self.result.status_code, self.result)
+            else:
+                print("delete_project_create_by_name: {} does not exist".format(name))
 
-        # url = self.host + self.root_path + "/project/{}".format(int(id_project))
-        # id project to delete: 2129903, "name":"new project"
-        url = self.host + self.root_path + "/projects/{}".format(2123257)
-        self.result = self.response.do_request("GET", url)
-        print("get a project",self.result.text)
-        return self.result
+#Epic functionss /projects/{project_id}/epics/{epic_id}
+    def create_epic_test(self, context, epic_name_create, project_id):
+        epic_test=Epic.Epic()
+        url = self.host + self.root_path + "/projects/{}/epics".format(project_id)
+        self.response.add_parameter("name",epic_name_create)
+        self.result = self.response.do_request("POST", url,self.response.get_parameter() )
+        epic_test.set_response_data(self.result.status_code, self.result)
+        data = json.loads(self.result.text)
+        epic_test = get_an_object_response(context,data, epic_test)
+        return epic_test
 
-
-    def delete_project_create_by_name(self, name):
-
-        return None
+    def get_compare_object(self,context, service ):
+        if (service == "epics"):
+            epic_test = Epic.Epic()
+            data = json.loads(context.result.text)
+            epic_test = get_an_object_response(context, data, epic_test)
+            return epic_test

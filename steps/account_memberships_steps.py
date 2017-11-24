@@ -24,7 +24,7 @@ def step_impl(context, method, person_id, endpoint):
         url = context.host + context.root_path + endpoint
         body = {"timekeeper": "true"}
         context.result = context.r.do_request(method, url, body)
-    if method == "DEL":
+    if method == "DELETE":
         context.account_member = context.js_util.read_json_from_file("account.json")
         url = context.host + context.root_path + endpoint
         context.result = context.r.do_request(method, url)

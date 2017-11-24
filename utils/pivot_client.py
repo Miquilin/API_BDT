@@ -10,17 +10,22 @@ class PivotalClient:
 
 
     def do_request(self, method, endpoint, body=None):
+        result=None
         if method == 'GET':
             result = requests.get(endpoint, headers=self.headers)
         elif method == 'POST':
-            print(body)
-            result = requests.post(endpoint, headers=self.headers, data=body)
-        elif method == 'PUT':
-            print(body)
-            result = requests.put(endpoint, headers=self.headers, data=body)
-        elif method == 'DEL':
-            print(body)
+            if(len(self.parameter) !=0):
+                result = requests.post(endpoint, headers=self.headers,data= self.parameter)
+                print(result.text)
+            else:
+                result = requests.post(endpoint, headers=self.headers, data=body)
+        elif method == 'DELETE':
             result = requests.delete(endpoint, headers=self.headers)
+        elif method == 'PUT':
+            if (len(self.parameter) != 0):
+                result = requests.put(endpoint, headers=self.headers, data=self.parameter)
+            else:
+                result = requests.put(endpoint, headers=self.headers, data=body)
         return result
 
 
@@ -34,3 +39,8 @@ class PivotalClient:
 
     def get_parameter(self):
         return self.parameter
+
+    def get_value_parameter(self, key_input):
+        for key, value in self.parameter.items():
+            if key == key_input:
+                return value

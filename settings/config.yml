@@ -3,10 +3,4 @@ app:
   root_path: /services/v5
 users:
   admin_token: 829f856706957e4b65e4a261db7bf163
-  user_token: 99d8d265cef8087a9d5f6a24df672713
-project_test_data:
-  project_name: Miquilin Project
-  proyect_id: 2123257
-  epic_id: 3778393
-project_test_data_create:
-  project_name: Test create Project
+  user_token: 2877c249bcbb4cabff00f675a431ab7b

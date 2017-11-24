@@ -66,7 +66,7 @@ Examples:
   @crud
 Scenario Outline: Verify that the user is able to remove from the account an existent membership
    Given A valid admin user token added on header
-   When I do a "DEL" request with a person id <person_id> to pivotal endpoint "/accounts/<account_id>/memberships/<person_id>"
+   When I do a "DELETE" request with a person id <person_id> to pivotal endpoint "/accounts/<account_id>/memberships/<person_id>"
    Then I receive status code 204
 Examples:
    |person_id |account_id |

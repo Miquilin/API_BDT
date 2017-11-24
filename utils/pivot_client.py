@@ -13,8 +13,16 @@ class PivotalClient:
         if method == 'GET':
             result = requests.get(endpoint, headers=self.headers)
         elif method == 'POST':
+            print(body)
             result = requests.post(endpoint, headers=self.headers, data=body)
+        elif method == 'PUT':
+            print(body)
+            result = requests.put(endpoint, headers=self.headers, data=body)
+        elif method == 'DEL':
+            print(body)
+            result = requests.delete(endpoint, headers=self.headers)
         return result
+
 
 
 

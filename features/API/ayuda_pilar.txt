@@ -10,10 +10,6 @@ POST	Project Memberships	/projects/{project_id}/memberships	Verify it is possibl
 DELETE	Project Memberships	/projects/{project_id}/memberships/{membership_id}	Verify it is possible to delete a project membership
 PUT	Project Memberships	/projects/{project_id}/memberships/{membership_id}	Verify it is possible to update a project membership
 
-POST	Project Webhooks	/projects/{project_id}/webhooks	Create a webhook on the project
-PUT	Project Webhooks	/projects/{project_id}/webhooks/{webhook_id}	Update the specified project webhook
-DELETE	Project Webhooks	/projects/{project_id}/webhooks/{webhook_id}	Delete the specified project webhook
-
 
 Pivotaltracker >> bluemix_ui_rpfh1@mailinator.com >> test123*
 API token >>  744ad5c51080ca7430af750f97891c46
@@ -46,4 +42,15 @@ http://librosweb.es/libro/algoritmos_python/capitulo_9/utilizando_diccionarios_e
 JSON
 https://docs.python.org/3/library/json.html
 http://programacion.net/articulo/como_trabajar_con_datos_json_utilizando_python_1403
+http://recursospython.com/guias-y-manuales/json/
 
+
+
+http://acodigo.blogspot.com/2017/03/python-leer-y-escribir-datos-en-formato.html
+http://www.pythondiario.com/2017/10/analisis-de-json-con-python.html------------------------------------------------------------
+print (dict(project))       # print a dictionary
+print (context.result.text)  # printing the response as is
+print('Tipo de projects i :::: ',type(projects[i])) # imprime el tipo de dato
+projects = loads(context.result.text) # convierte en un diccionario el response devuelto
+project = loads(convertido) # Convierte de json a diccionario
+project_keys = dict(project).keys() # Recupera los keys de un diccionario en un array

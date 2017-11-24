@@ -2,34 +2,30 @@ from behave import given, when, then
 from utils import project_utils
 
 
-@then(u'I receive projects list')
-def step_impl(context):
-    print("===================================")
-    project_utils.printing_response(context,"Projects")
-    print("===================================")
+@then(u'I receive a {service} list')
+def step_impl(context, service):
+    list_data = project_utils.getting_list(context, service)
+    print('\tList of ', service, '(s) retrieved : ', len(list_data))
 
 
-# To create a new project
-@given(u'I will create project "My New Project"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given I will create project "My New Project"')
+@then(u'I receive a {service} dictionary')
+def step_impl(context, service):
+    dict_data = project_utils.getting_dict(context, service)
+    print('\tDictionary of ', service, '(s) retrieved : ', len(dict_data))
 
-@when(u'I sending a "POST" request to pivotal endpoint "/projects"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When I sending a "POST" request to pivotal endpoint "/projects"')
 
-@then(u'I receive the project id')
-def step_impl(context):
-    print(str(context.result.response))
+@then(u'I receive a {service} as result')
+def step_impl(context, service):
+    gral_data = project_utils.getting_object(context, service)
 
-@given(u'I have the project 123456')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given I have the project 123456')
 
-@given(u'I need to update the project name to Editing my project')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given I need to update the project name to Editing my project')
+# Author: Rosario
+@given(u'I have "{key}" with value "{value}"')
+def step_impl(context, key, value):
+    context.body[key] = value
+    # print ("BODY :::::::::::: ", dict(context.body))
 
-@given(u'I need to update the project description to This my descrption')
+
+@then(u'I receive new object created')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: Given I need to update the project description to This my descrption')
+    print('\n RESULT: \n', context.result.text)

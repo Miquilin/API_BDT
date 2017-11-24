@@ -1,0 +1,20 @@
+before_step(context, step), after_step(context, step)
+before_scenario(context, scenario), after_scenario(context, scenario)
+before_feature(context, feature), after_feature(context, feature)
+before_tag(context, tag), after_tag(context, tag)
+before_all(context), after_all(context)
+
+
+
+
+C:\Users\Daniela Ticona\Project_API_PD\ProyectoBDT\API_BDT>
+
+
+behave -f plain --tags @dani --summary --no-capture
+AND
+behave -f plain --tags @any --tags @some --summary --no-capture
+OR
+behave -f plain --tags @any,@some --summary --no-capture
+NOT
+behave -f plain --tags @any --tags ~@some --summary --no-capture
+from json import load, loads, dumps

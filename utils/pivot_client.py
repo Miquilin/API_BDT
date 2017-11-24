@@ -9,11 +9,15 @@ class PivotalClient:
         self.parameter = {}
 
 
-    def do_request(self, method, endpoint, body=None):
+    def do_request(self, method, endpoint, body):
         if method == 'GET':
             result = requests.get(endpoint, headers=self.headers)
         elif method == 'POST':
             result = requests.post(endpoint, headers=self.headers, data=body)
+        elif method == 'PUT':
+            result = requests.put(endpoint, headers=self.headers, data=body)
+        elif method == 'DELETE':
+            result = requests.delete(endpoint, headers=self.headers)
         return result
 
 
